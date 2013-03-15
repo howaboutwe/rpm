@@ -301,6 +301,7 @@ module NewRelic
       #                    contact
       #  - :data => the data to send as the body of the request
       def send_request(opts)
+        puts "BEGINNING REQUEST"
         request = Net::HTTP::Post.new(opts[:uri], 'CONTENT-ENCODING' => opts[:encoding], 'HOST' => opts[:collector].name)
         request['user-agent'] = user_agent
         request.content_type = "application/octet-stream"
