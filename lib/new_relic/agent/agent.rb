@@ -612,7 +612,9 @@ module NewRelic
         def start_worker_thread(connection_options = {})
           ::NewRelic::Agent.logger.debug "Creating Ruby Agent worker thread."
           @worker_thread = NewRelic::Agent::AgentThread.new('Worker Loop') do
-            deferred_work!(connection_options)
+            Fiber.new do
+              deferred_work!(connection_options)
+            end.resume
           end
         end
 
